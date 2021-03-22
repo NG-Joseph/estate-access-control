@@ -8,9 +8,13 @@ import { SecurityAdminModule } from './security-admin/security-admin.module';
 import { ResidentModule } from './resident/resident.module';
 import { HomeModule } from './home/home.module';
 import { RolesModule } from './roles/roles.module';
+import { HomesModule } from './homes/homes.module';
+import { VisitorsModule } from './visitors/visitors.module';
+import { UsersModule } from './users/users.module';
+import { SecurityAdminsModule } from './security-admins/security-admins.module';
 
 @Module({
-  imports: [ UserModule, AuthModule, VisitorModule, SecurityAdminModule, ResidentModule, HomeModule, RolesModule],
+  imports: [ UserModule, AuthModule, VisitorModule, SecurityAdminModule, ResidentModule, HomeModule, RolesModule, HomesModule, VisitorsModule, UsersModule, SecurityAdminsModule],
   controllers: [AppController],
   providers: [AppService],
 })

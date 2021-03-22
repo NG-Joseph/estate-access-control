@@ -1,4 +1,5 @@
-import {Column, CreateDateColumn, UpdateDateColumn, PrimaryGeneratedColumn} from 'typeorm';
+import { BaseAbstractEntity } from "../../global/base-abstract.entity";
+import {Column, CreateDateColumn, UpdateDateColumn, PrimaryGeneratedColumn, Entity, Index, JoinTable, ManyToMany, OneToMany, OneToOne } from 'typeorm';
 
 
 export abstract class BaseAbstractEntity {//columns common to all entities to be inherited
