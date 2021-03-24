@@ -1,5 +1,6 @@
 import { BaseAbstractEntity } from "../../global/base-abstract.entity";
-import {Column, CreateDateColumn, UpdateDateColumn, PrimaryGeneratedColumn, Entity, Index, JoinTable, ManyToMany, OneToMany, OneToOne } from 'typeorm';
+import {Column, JoinColumn, CreateDateColumn, UpdateDateColumn, PrimaryGeneratedColumn, Entity, Index, JoinTable, ManyToMany, OneToMany, OneToOne } from 'typeorm';
+import { User } from "src/users/entities/user.entity";
 
 
 @Entity()
@@ -24,6 +25,11 @@ export class Visitor extends BaseAbstractEntity {
 
 
     //NEXT: Relationships
+
+    @OneToOne(type => User, user => user.visitor)
+    @JoinColumn()
+    user: User
+}
 
         
 
@@ -67,4 +73,3 @@ export class Visitor extends BaseAbstractEntity {
 
         
 
-}
