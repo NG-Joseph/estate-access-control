@@ -5,7 +5,7 @@
 ### 2. Install dependencies
 `$ npm install`
 ### 3. Change Database Connection Settings
-In `app.database.module.ts` change the details such as `POSTGRES_PASSWORD` to your password. Same applies to Port and User if different
+In `src/app.database.module.ts` change the details such as `POSTGRES_PASSWORD` to your password. Same applies to Port and User if different
 
 ## Create Database in pgAdmin
 Create a database called `estate-access-control` in pgAdmin
