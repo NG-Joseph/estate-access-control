@@ -4,7 +4,7 @@ Note: Dollar Signs ($) represent terminal commands
 ### 1. Clone Repository
 `$ git clone https://github.com/NG-Joseph/estate-access-control`
 ### 2. Navigate Into Repository
-`cd estate-access-control`
+`$ cd estate-access-control`
 ### 2. Install dependencies
 `$ npm install`
 ### 3. Change Database Connection Settings
