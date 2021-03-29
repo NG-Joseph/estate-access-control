@@ -1,6 +1,6 @@
 import { BaseAbstractEntity } from "../../global/base-abstract.entity";
 import { User } from "../../users/entities/user.entity";
-import { Column, Entity, ManyToMany, OneToMany, OneToOne, JoinColumn, JoinTable } from "typeorm";
+import { Column, Entity, ManyToMany, OneToMany, OneToOne, JoinColumn, JoinTable, ManyToOne } from "typeorm";
 import { Home } from "src/homes/entities/home.entity";
 import { Visitor } from "src/visitors/entities/visitor.entity";
 import { SecurityAdmin } from "src/security-admins/entities/security-admin.entity";
@@ -40,7 +40,7 @@ home: Home[];
 @JoinColumn()
 visitor: Visitor[];
 
-@OneToMany(type => SecurityAdmin, securityAdmin => securityAdmin.assignedResident)
+@ManyToOne(type => SecurityAdmin, securityAdmin => securityAdmin.assignedResidents)
 securityOfficer: SecurityAdmin
 
 
