@@ -2,6 +2,8 @@ import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { AuthModule } from './auth/auth.module';
+import { ResidentsModule } from './residents/residents.module';
+import { ItemsModule } from './items/items.module';
 
 /**
  * Database configuration module for reading properties from environment variables
@@ -24,7 +26,9 @@ import { AuthModule } from './auth/auth.module';
         synchronize: true,
         autoLoadEntities: true
       })
-    })
+    }),
+    
+    
   ],
 })
 export class DatabaseModule {}
