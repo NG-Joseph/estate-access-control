@@ -23,6 +23,9 @@ export class Resident extends BaseAbstractEntity {
 @Column({type: 'enum',enum: Gender})
     gender: Gender
 
+@Column({ nullable: true })
+    emailAddress: string;
+
 @Column()
     photo:string;
 

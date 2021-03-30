@@ -17,6 +17,9 @@ export class SecurityAdmin extends BaseAbstractEntity {
     @Column()
     middleName: string;
 
+    @Column({ nullable: true })
+    emailAddress: string;
+
     @Column("simple-array")
     roles: SecurityAdminRole[]
 

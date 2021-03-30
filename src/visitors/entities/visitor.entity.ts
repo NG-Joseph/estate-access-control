@@ -74,29 +74,5 @@ export class Visitor extends BaseAbstractEntity {
   @JoinColumn()
   securityOfficer: SecurityAdmin;
 
-  @Column({ nullable: true })
-  passwordSalt: string;
 
-  @Column({ select: false }) //don't select password whenever user is called. See https://typeorm.io/#/select-query-builder/hidden-columns
-  passwordHash: string;
-
-  //set to true if password change is required
-  @Column({ default: false })
-  isPasswordChangeRequired: boolean;
-
-  //token to be generated when password change request is made
-  @Column({ unique: true, nullable: true })
-  resetPasswordToken: string;
-
-  @Column({ nullable: true })
-  resetPasswordExpiration: Date;
-
-  @Column({ nullable: true })
-  primaryEmailVerificationToken: string;
-
-  @Column({ nullable: true })
-  backupEmailVerificationToken: string;
-
-  @Column({ nullable: true })
-  emailVerificationTokenExpiration: Date;
 }
