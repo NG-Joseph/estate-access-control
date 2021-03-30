@@ -17,6 +17,7 @@ import { User } from 'src/users/entities/user.entity';
 import { Resident } from 'src/residents/entities/resident.entity';
 import { SecurityAdmin } from 'src/security-admins/entities/security-admin.entity';
 
+
 @Entity()
 export class Visitor extends BaseAbstractEntity {
   @Column({ nullable: true })
@@ -27,6 +28,8 @@ export class Visitor extends BaseAbstractEntity {
 
   @Column({ nullable: true })
   middleName: string;
+
+
 
   @Column({ nullable: true })
   photo: string;
@@ -70,38 +73,30 @@ export class Visitor extends BaseAbstractEntity {
   )
   @JoinColumn()
   securityOfficer: SecurityAdmin;
+
+  @Column({ nullable: true })
+  passwordSalt: string;
+
+  @Column({ select: false }) //don't select password whenever user is called. See https://typeorm.io/#/select-query-builder/hidden-columns
+  passwordHash: string;
+
+  //set to true if password change is required
+  @Column({ default: false })
+  isPasswordChangeRequired: boolean;
+
+  //token to be generated when password change request is made
+  @Column({ unique: true, nullable: true })
+  resetPasswordToken: string;
+
+  @Column({ nullable: true })
+  resetPasswordExpiration: Date;
+
+  @Column({ nullable: true })
+  primaryEmailVerificationToken: string;
+
+  @Column({ nullable: true })
+  backupEmailVerificationToken: string;
+
+  @Column({ nullable: true })
+  emailVerificationTokenExpiration: Date;
 }
-
-/*Email & Password Verification **LATER*/
-/*
-    @Column({ default: false })
-    isPrimaryEmailAddressVerified: boolean;
-
-    @Column({ default: false })
-    isBackupEmailAddressVerified: boolean;
-
-    @Column({ nullable: true })
-    passwordSalt: string;
-
-    @Column({ select: false }) //don't select password whenever user is called. See https://typeorm.io/#/select-query-builder/hidden-columns
-    passwordHash: string;
-
-    //set to true if password change is required
-    @Column({ default: false })
-    isPasswordChangeRequired: boolean;
-
-    //token to be generated when password change request is made
-    @Column({ unique: true, nullable: true })
-    resetPasswordToken: string;
-
-    @Column({ nullable: true })
-    resetPasswordExpiration: Date;
-
-    @Column({ nullable: true })
-    primaryEmailVerificationToken: string;
-
-    @Column({ nullable: true })
-    backupEmailVerificationToken: string;
-
-    @Column({ nullable: true })
-    emailVerificationTokenExpiration: Date; */

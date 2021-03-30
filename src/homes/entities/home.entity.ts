@@ -10,7 +10,7 @@ export class Home extends BaseAbstractEntity{
         description: string;
 
     @Column('simple-json')
-    contactDetails: {phoneNumbers: string[], email:string}
+    contactDetails: {phoneNumbers: string[], emails:string[]}
 
 
     /* Relationships*/ 

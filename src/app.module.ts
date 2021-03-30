@@ -8,9 +8,10 @@ import { UsersModule } from './users/users.module';
 import { SecurityAdminsModule } from './security-admins/security-admins.module';
 import { ConfigModule } from '@nestjs/config';
 import { DatabaseModule } from './app.database.module';
+import { ResidentsModule } from './residents/residents.module';
 
 @Module({
-  imports: [  RolesModule, HomesModule, VisitorsModule, UsersModule, SecurityAdminsModule, ConfigModule.forRoot(),DatabaseModule],
+  imports: [  RolesModule, HomesModule, VisitorsModule, UsersModule, ResidentsModule, SecurityAdminsModule, ConfigModule.forRoot(),DatabaseModule],
   controllers: [AppController],
   providers: [AppService],
 })

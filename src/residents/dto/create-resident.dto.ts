@@ -7,7 +7,7 @@ export class CreateResidentDto {
     middleName: string;
     dateOfBirth: Date;
     photo: string;
-    user:User
+    
 
     
 

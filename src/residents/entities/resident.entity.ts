@@ -7,7 +7,7 @@ import { SecurityAdmin } from "src/security-admins/entities/security-admin.entit
 import { Gender } from "src/global/app.enum";
 
 @Entity()
-export class Resident {
+export class Resident extends BaseAbstractEntity {
 @Column({nullable:true})
     firstName: string;
 
@@ -20,11 +20,12 @@ export class Resident {
 @Column({nullable:true})
     dateOfBirth: Date
 
-@Column({enum: Gender})
+@Column({type: 'enum',enum: Gender})
     gender: Gender
 
 @Column()
     photo:string;
+
 
 // Relationships
 

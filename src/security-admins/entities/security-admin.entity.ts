@@ -2,6 +2,8 @@ import { BaseAbstractEntity } from "../../global/base-abstract.entity";
 import {Column, CreateDateColumn, UpdateDateColumn, PrimaryGeneratedColumn, Entity, Index, JoinTable, ManyToMany, OneToMany, OneToOne } from 'typeorm';
 import { Resident } from "src/residents/entities/resident.entity";
 import { Visitor } from "src/visitors/entities/visitor.entity";
+import { User } from "src/users/entities/user.entity";
+import { SecurityAdminRole } from "src/global/app.enum";
 
 
 @Entity()
@@ -15,6 +17,9 @@ export class SecurityAdmin extends BaseAbstractEntity {
     @Column()
     middleName: string;
 
+    @Column("simple-array")
+    roles: SecurityAdminRole[]
+
     @Column({nullable:true})
     dateOfBirth: Date
 
@@ -27,5 +32,6 @@ export class SecurityAdmin extends BaseAbstractEntity {
     @OneToMany(type => Visitor, visitor => visitor.securityOfficer )
     assignedVisitors: Visitor[]
 
-
+    @OneToOne(type => User)
+    user: User
 }
