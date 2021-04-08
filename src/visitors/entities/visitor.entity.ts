@@ -41,7 +41,7 @@ export class Visitor extends BaseAbstractEntity {
   phoneNumber: number;
 
   @Column('simple-json', { nullable: true })
-  visitLog: { datesOfVisit: string[] };
+  visitLog: { datesOfVisit: Date[] };
 
   @Column({ nullable: true }) //null if auto approved
   approvedBy: number;

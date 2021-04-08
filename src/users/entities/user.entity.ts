@@ -24,6 +24,28 @@ export class User extends BaseAbstractEntity{
     @Column({ nullable: true })
         photoMimeType: string; //save the encoding of uploaded file for content-type use for reply.type as shown above
 
+    @Column({nullable:true})
+        passwordHash: string;
+
+    @Column({nullable: true})
+        phoneNumber:number;
+
+    @Column({nullable: true})
+        passwordSalt: string;
+
+    @Column({nullable: true})
+        primaryEmailVerificationToken: string;
+
+    @Column()
+    emailVerificationTokenExpiration: Date;
+
+
+    @Column()
+    isPrimaryEmailAddressVerified: boolean
+
+    @Column()
+    refreshTokenHash: string
+
     @Column({ unique: true })
         @Index()
             primaryEmailAddress: string;
