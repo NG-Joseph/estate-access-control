@@ -4,14 +4,14 @@ import { SecurityAdmin } from "src/security-admins/entities/security-admin.entit
 import { CreateUserDto } from "src/users/dto/create-user.dto";
 
 export class CreateVisitorDto {
-    firstName:string;
-    lastName: string;
-    middleName: string;
-    photo: string;
-    emailAddress: string;
-    phoneNumber: number;
-    visitLog: {daysOfVisit: Date[]};
-    user:CreateUserDto;
+    readonly firstName:string;
+    readonly lastName: string;
+    readonly middleName: string;
+    readonly photo: string;
+    readonly emailAddress: string;
+    readonly phoneNumber: number;
+    readonly visitLog: {daysOfVisit: Date[]};
+    readonly user:CreateUserDto;
   
     
 }

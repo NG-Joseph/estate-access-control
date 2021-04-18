@@ -15,8 +15,12 @@ export class User extends BaseAbstractEntity{
 
     @Column()
         lastName: string
+
     @Column()
         middleName: string
+
+    @Column()
+        dateOfBirth: Date
 
     @Column({ nullable: true })
         photo: string; //photo file location. Use stream to send
@@ -48,7 +52,7 @@ export class User extends BaseAbstractEntity{
 
     @Column({ unique: true })
         @Index()
-            primaryEmailAddress: string;
+            emailAddress: string;
             
 
     @ManyToMany(type => Role, role => role.users)

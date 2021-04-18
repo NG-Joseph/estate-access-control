@@ -3,6 +3,7 @@ import { CreateUserDto } from "src/users/dto/create-user.dto";
 import { CreateVisitorDto } from "src/visitors/dto/create-visitor.dto";
 import { Visitor } from "src/visitors/entities/visitor.entity";
 import { ApiProperty } from "@nestjs/swagger";
+import { User } from "src/users/entities/user.entity";
 
 export class CreateSecurityAdminDto {
     @ApiProperty()
@@ -14,7 +15,7 @@ export class CreateSecurityAdminDto {
     @ApiProperty()
     readonly emailAddress: string;
     @ApiProperty()
-    readonly user:CreateUserDto;
+    readonly user:User;
     @ApiProperty()
     readonly assignedVisitors: Visitor[];
     @ApiProperty()

@@ -4,6 +4,7 @@ import { CreateVisitorDto } from "src/visitors/dto/create-visitor.dto";
 import { Visitor } from "src/visitors/entities/visitor.entity";
 import { ApiProperty } from "@nestjs/swagger";
 import {IsEmail, IsNotEmpty} from 'class-validator'
+import { User } from "src/users/entities/user.entity";
 
 export class UpdateSecurityAdminDto {
     @ApiProperty({required:false})
@@ -18,7 +19,7 @@ export class UpdateSecurityAdminDto {
     @IsEmail()
     readonly emailAddress: string;
     @ApiProperty({required:false})
-    readonly user:CreateUserDto;
+    readonly user:User;
     @ApiProperty({required:false})
     readonly assignedVisitors: Visitor[];
     @ApiProperty({required:false})

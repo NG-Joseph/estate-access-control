@@ -9,11 +9,13 @@ export class CreateUserDto {
   readonly lastName?: string;
   @ApiProperty({ required: false })
   @IsNotEmpty()
+  readonly middleName?: string;
+  @ApiProperty({ required: false })
+  @IsNotEmpty()
   readonly emailAddress?: string;
   @ApiProperty({ required: false })
   readonly dateOfBirth?: Date;
-  @ApiProperty({ required: false })
-  readonly middleName?: string;
+
   @ApiProperty({ required: false })
   readonly photo?: string;
   @ApiProperty({ required: false })

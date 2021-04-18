@@ -10,6 +10,7 @@ require('dotenv').config({ path: 'config.env' });
 
 //user management
 export const PASSWORD_RESET_EXPIRATION = 86400000 * 2 //24 hours * 2 in milliseconds
+export const VISIT_TOKEN_EXPIRATION = 900000 * 2
 
 export const EMAIL_VERIFICATION_EXPIRATION = 86400000 * 2 //24 hours * 2 in milliseconds
 
@@ -68,6 +69,14 @@ export const confirmEmailMailOptionSettings = {
 
 }
 
+export const visitorRequestMailOptionSettings = {
+    textTemplate: `Hello {user.firstName}, \n 
+    {visitor.firstName} wants to pay you a visit. To accept, please click this link or paste it into your browser:\n\n
+    {url}
+    If you did not request this, please ignore this email for the next 5 hours and the request will be automatically declined.`,
+    subject: "Visit Request from {visitor.firstName} {visitor.lastName}"
+}
+
 export const APP_NAME: string = "Estate API";
 
 export const APP_DESCRIPTION: string = "Estate Access Control backend for managing and logging visits into an estate";
@@ -81,10 +90,11 @@ export const AUTO_SEND_CONFIRM_EMAIL: boolean = true;
 
 
 
-export enum LandLordRoles { //better use this for creating roles, so as to ensure that the names are always the same
-    Admin = 'admin_landlord',
-    SuperAdmin = 'superadmin_landlord',
-    User = 'user_landlord'
+export enum UserRoles { //better use this for creating roles, so as to ensure that the names are always the same
+    SecurityAdmin = 'security_admin',
+    Resident = 'resident',
+    Guest = 'guest',
+    Visitor = 'visitor'
 }
 
 

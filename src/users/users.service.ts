@@ -57,7 +57,7 @@ export class UsersService {
             })
             const user = await this.userRepository.save(newUser);
             //call confirmEmailRequest() without await.
-            if (AUTO_SEND_CONFIRM_EMAIL) this.confirmEmailRequest(user.primaryEmailAddress, null, true, req)
+            if (AUTO_SEND_CONFIRM_EMAIL) this.confirmEmailRequest(user.emailAddress, null, true, req)
             return user;
         } catch (error) {
             if (error && error.code === PG_UNIQUE_CONSTRAINT_VIOLATION) {
@@ -318,6 +318,7 @@ export class UsersService {
         }
 
     }
+    
 
     /*Let's work on functions to set/add and unset/remove relations. set/unset applies to x-to-one and add/remove applies to x-to-many */
     //1. Roles
@@ -626,7 +627,7 @@ export class UsersService {
             if (userId != null) {
                 user = await this.userRepository.findOne(userId);
             } else {
-                user = primary ? await this.userRepository.findOne({ where: { primaryEmailAddress: email } }) : await this.userRepository.findOne({ where: { backupEmailAddress: email } });
+                user = primary ? await this.userRepository.findOne({ where: { emailAddress: email } }) : await this.userRepository.findOne({ where: { backupEmailAddress: email } });
             }
             if (user != null) {
                 //generate the token (for primary or backup). See resetPasswordRequest above for ideas
@@ -648,7 +649,7 @@ export class UsersService {
 
                     //mailOptions
                     const mailOptions: SendMailOptions = {
-                        to: user.primaryEmailAddress,
+                        to: user.emailAddress,
                         from: confirmEmailMailOptionSettings.from,
                         subject: confirmEmailMailOptionSettings.subject,
                         text: mailText,
@@ -680,12 +681,12 @@ export class UsersService {
             }, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-    async findByPrimaryEmailAddress(primaryEmailAddress: string): Promise<User> {
+    async findByPrimaryEmailAddress(emailAddress: string): Promise<User> {
         try {
             return await this.userRepository.createQueryBuilder("user")
                 .leftJoinAndSelect("user.roles", "roles")
                 .addSelect("user.passwordHash")
-                .where("user.primaryEmailAddress = :primaryEmailAddress", { primaryEmailAddress })
+                .where("user.emailAddress = :emailAddress", { emailAddress })
                 .getOne();
         } catch (error) {
             throw new HttpException({
@@ -696,10 +697,10 @@ export class UsersService {
 
     }
 
-    async findByConfirmedPrimaryEmailAddress(primaryEmailAddress: string): Promise<User> {
+    async findByConfirmedPrimaryEmailAddress(emailAddress: string): Promise<User> {
         try {
             return await this.userRepository.createQueryBuilder("user")
-                .where("user.primaryEmailAddress = :primaryEmailAddress", { primaryEmailAddress })
+                .where("user.emailAddress = :emailAddress", { emailAddress })
                 .andWhere("user.isPrimaryEmailAddressVerified = :isPrimaryEmailAddressVerified", { isPrimaryEmailAddressVerified: true })
                 .getOne();
         } catch (error) {

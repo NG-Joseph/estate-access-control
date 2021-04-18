@@ -136,7 +136,7 @@ export class UsersController {
      * Returns html
      * @param reply 
      */
-    @ApiOperation({ description: "This url is for web client involving both server-side and client-side rendering" })
+  /*  @ApiOperation({ description: "This url is for web client involving both server-side and client-side rendering" })
     @ApiOkResponse({description: 'Rendered web page is returned.'})
     @ApiInternalServerErrorResponse({description: 'Internal server error'})
     @Get('web*')
@@ -302,17 +302,7 @@ export class UsersController {
 
     }  
 
-    /**
-     * Receives request to confirm backup email address of user with userId. Calls service to send a token.
-     * @param userId 
-     * @param req 
-     */
-    @Get(':userId/confirm-backup-email-request')
-    confirmBackupEmailRequest(@Param('userId', ParseIntPipe) userId: number, @Req() req: Request){
-        //may be safer to get userId from cookie
-        return this.usersService.confirmEmailRequest(null, userId, false, req);
-
-    } 
+  
 
     /**
      * Called to confirm primary email address. Passes token to service to validate and then confirm email
@@ -325,15 +315,7 @@ export class UsersController {
 
     }
 
-    /**
-     * Called to confirm primary email address. Passes token to service to validate and then confirm email
-     * @param token 
-     * @param reply 
-     */
-    @Get('confirm-backup-email/:token')
-    confirmBackupEmail(@Param('token') token: string, @Res() reply: Reply){
-        return this.usersService.confirmEmail(token, false, reply);
-    }
+   
     
 
 }

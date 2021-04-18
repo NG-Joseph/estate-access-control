@@ -9,11 +9,14 @@ export class UpdateUserDto {
     readonly lastName?: string;
     @ApiProperty({ required: false })
     @IsNotEmpty()
+    readonly middleName?: string;
+
+    @ApiProperty({ required: false })
+    @IsNotEmpty()
     readonly emailAddress?: string;
     @ApiProperty({ required: false })
     readonly dateOfBirth?: Date;
-    @ApiProperty({ required: false })
-    readonly middleName?: string;
+
     @ApiProperty({ required: false })
     readonly photo?: string;
     @ApiProperty({ required: false })
@@ -24,21 +27,21 @@ export class UpdateUserDto {
   
     @ApiProperty({ required: false })
   
-    passwordHash: string; //not readonly because it will be replaced by hash in the insertusers function
+    passwordHash?: string; //not readonly because it will be replaced by hash in the insertusers function
   
     @ApiProperty({ required: false })
-    readonly refreshTokenHash: string;
+    readonly refreshTokenHash?: string;
   
     @ApiProperty({ required: false })
-    readonly primaryEmailVerificationToken: string;
+    readonly primaryEmailVerificationToken?: string;
   
     @ApiProperty({ required: false })
   
-    readonly emailVerificationTokenExpiration: string;
+    readonly emailVerificationTokenExpiration?: string;
   
     @ApiProperty({ required: false })
    
-    readonly isPrimaryEmailAddressVerified: boolean;
+    readonly isPrimaryEmailAddressVerified?: boolean;
 
 
 }

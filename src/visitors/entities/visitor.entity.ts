@@ -59,7 +59,7 @@ export class Visitor extends BaseAbstractEntity {
   @JoinColumn()
   user: User;
 
-  //TODO: Research on using joincolumn() properly
+ 
   @ManyToOne(
     type => Resident,
     resident => resident.visitor,
