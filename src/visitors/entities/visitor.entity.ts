@@ -40,6 +40,12 @@ export class Visitor extends BaseAbstractEntity {
   @Column({ nullable: true })
   phoneNumber: number;
 
+  @Column({nullable:true})
+  visitToken: string
+  
+  @Column({nullable:true})
+  visitorTokenExpirationDate: Date
+
   @Column('simple-json', { nullable: true })
   visitLog: { datesOfVisit: Date[] };
 

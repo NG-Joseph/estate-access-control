@@ -40,7 +40,7 @@ export class UsersController {
     @ApiBadRequestResponse({description: "Bad request: constraint problem"})
     @ApiInternalServerErrorResponse({description: 'Internal server error'})
     @Post()
-    //TODO: still to find out why CreateUserDto as type is failing below. I am using User meanwhile
+    
     create(@Body() createUserDto: CreateUserDto, @Req() req: Request): Promise<User>{
         return this.usersService.create(createUserDto, req);
     }
@@ -242,12 +242,7 @@ export class UsersController {
         return this.usersService.removeRoleById(userId, query['roleid']);
     }
 
-    /*Work on other relationships*/
-    /**
-     * Create a new tenant and set user with userId as the primary contact
-     * @param createTenantDto 
-     * @param userId 
-/*
+
 
     
 
@@ -298,7 +293,7 @@ export class UsersController {
     @Get(':userId/confirm-primary-email-request')
     confirmPrimaryEmailRequest(@Param('userId', ParseIntPipe) userId: number, @Req() req: Request){
         //may be safer to get userId from cookie
-        return this.usersService.confirmEmailRequest(null, userId, true, req);
+        return this.usersService.confirmEmailRequest(null, userId,  req);
 
     }  
 

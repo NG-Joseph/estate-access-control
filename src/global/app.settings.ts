@@ -68,6 +68,14 @@ export const confirmEmailMailOptionSettings = {
     from: "noreply@estate.com"
 
 }
+export const grantVisitMailOptionSettings = {
+    textTemplate: `Hello {visitor.firstName}, \n 
+    {user.firstName} has granted you permission to pay you a visit. Show this token to the security personnel at the gate for entry access:\n\n
+    {url}
+    If you did not request this, please ignore this email for the next 5 hours and the request will be automatically declined.`,
+    subject: "Visit Request from {visitor.firstName} {visitor.lastName}",
+    from: "noreply@estate.com"
+}
 
 export const visitorRequestMailOptionSettings = {
     textTemplate: `Hello {user.firstName}, \n 

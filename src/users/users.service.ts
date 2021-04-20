@@ -3,6 +3,7 @@ import { InjectConnection, InjectRepository } from '@nestjs/typeorm';
 import { PG_UNIQUE_CONSTRAINT_VIOLATION } from 'src/global/error.codes';
 import { CreateRoleDto } from 'src/roles/dto/create-role.dto';
 import { Role } from 'src/roles/entities/role.entity';
+import {} from 'otp-generator';
 
 import { Connection, DeleteResult, InsertResult, Repository, UpdateResult } from 'typeorm';
 import { CreateUserDto } from './dto/create-user.dto';
@@ -17,7 +18,7 @@ import { pipeline } from 'stream';//also for uploaded file streaming to file
 import fs from 'fs';
 import { v4 as uuidv4 } from 'uuid';
 import { randomBytes } from 'crypto';
-import { API_VERSION, AUTO_SEND_CONFIRM_EMAIL, confirmEmailMailOptionSettings, EMAIL_VERIFICATION_EXPIRATION, PASSWORD_RESET_EXPIRATION, PHOTO_FILE_SIZE_LIMIT, PROTOCOL, resetPasswordMailOptionSettings, smtpTransport, smtpTransportGmail,  USE_API_VERSION_IN_URL } from 'src/global/app.settings';
+import { API_VERSION, AUTO_SEND_CONFIRM_EMAIL, confirmEmailMailOptionSettings, EMAIL_VERIFICATION_EXPIRATION, VISIT_TOKEN_EXPIRATION, PHOTO_FILE_SIZE_LIMIT, PROTOCOL, resetPasswordMailOptionSettings, smtpTransport, smtpTransportGmail,  USE_API_VERSION_IN_URL, grantVisitMailOptionSettings } from 'src/global/app.settings';
 import { SendMailOptions } from 'nodemailer';
 
 
@@ -57,7 +58,7 @@ export class UsersService {
             })
             const user = await this.userRepository.save(newUser);
             //call confirmEmailRequest() without await.
-            if (AUTO_SEND_CONFIRM_EMAIL) this.confirmEmailRequest(user.emailAddress, null, true, req)
+            if (AUTO_SEND_CONFIRM_EMAIL) this.confirmEmailRequest(user.emailAddress, null,  req)
             return user;
         } catch (error) {
             if (error && error.code === PG_UNIQUE_CONSTRAINT_VIOLATION) {
@@ -98,7 +99,7 @@ export class UsersService {
             //iteratively call confirmEmailRequest() for users without await.
             if (AUTO_SEND_CONFIRM_EMAIL) {
                 users.map((user) => {
-                    this.confirmEmailRequest(user.emailAddress, null, true, req)
+                    this.confirmEmailRequest(user.emailAddress, null, req)
                 })
             }
 
@@ -548,7 +549,7 @@ export class UsersService {
         //if fileName is not found, it means that there was no previous upload. Use generic avatar
         if (fileName == null || undefined) {
 
-            fileName = "blankPhotoAvatar.png";//make sure that it exists
+            fileName = "randomphoto.png";//make sure that it exists
             mimeType = "image/png";
         }
         const filePath = `uploads/photos/${fileName}`;
@@ -621,13 +622,13 @@ export class UsersService {
      * @param backup 
      */ 
 
-    async confirmEmailRequest(email: string = null, userId: number = null, primary: boolean, req: Request) {
+    async confirmEmailRequest(email: string = null, userId: number = null, req: Request) {
         try {
             let user: User = null;
             if (userId != null) {
                 user = await this.userRepository.findOne(userId);
             } else {
-                user = primary ? await this.userRepository.findOne({ where: { emailAddress: email } }) : await this.userRepository.findOne({ where: { backupEmailAddress: email } });
+                user =  await this.userRepository.findOne({ where: { emailAddress: email } }) 
             }
             if (user != null) {
                 //generate the token (for primary or backup). See resetPasswordRequest above for ideas
@@ -644,12 +645,71 @@ export class UsersService {
 
                     //construct and send email using nodemailer
                     const globalPrefixUrl = USE_API_VERSION_IN_URL ? `/${API_VERSION}` : '';
-                    const url = primary ? `${req.protocol || PROTOCOL}://${req.hostname}${globalPrefixUrl}/users/confirm-primary-email/${token}` : `${req.protocol}://${req.hostname}${globalPrefixUrl}/users/confirm-backup-email/${token}`;
+                    const url =  `${req.protocol || PROTOCOL}://${req.hostname}${globalPrefixUrl}/users/confirm-primary-email/${token}` 
                     const mailText = confirmEmailMailOptionSettings.textTemplate.replace('{url}', url);
 
                     //mailOptions
                     const mailOptions: SendMailOptions = {
                         to: user.emailAddress,
+                        from: confirmEmailMailOptionSettings.from,
+                        subject: confirmEmailMailOptionSettings.subject,
+                        text: mailText,
+                    };
+
+                    //send mail
+                    smtpTransportGmail.sendMail(mailOptions, async (error: Error) => {
+                        //if (error)
+                        //    throw error; //throw error that will be caught at the end?
+                        if (error)
+                            console.log(error)
+                    });
+                });
+                return {
+                    notificationClass: "is-info",
+                    notificationMessage: `If valid user, you will receive email shortly for email address confirmation`
+                };
+            } else {//email address or user not found
+                //log bad request here and still respond
+                return {
+                    notificationClass: "is-info",
+                    notificationMessage: `If valid user, you will receive email shortly for email addres confirmation`
+                };
+            }
+        } catch (error) {
+            throw new HttpException({
+                status: HttpStatus.INTERNAL_SERVER_ERROR,
+                error: `Problem sending email address confirmation: ${error.message}`,
+            }, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+    async grantVisitRequestToken(email: string = null, visitorId: number = null, req: Request) {
+        try {
+            let visitor: Visitor = null;
+            if (visitorId != null) {
+                visitor = await this.visitorRepository.findOne(visitorId);
+            } else {
+                visitor =  await this.visitorRepository.findOne({ where: { emailAddress: email } }) 
+            }
+            if (visitor != null) {
+                //generate the token (for primary or backup). See resetPasswordRequest above for ideas
+                randomBytes(256, async (error, buf) => {
+                    if (error)
+                        throw error; //strange. the catch part below will handle it
+                    const token = buf.toString('hex');
+
+                    //success. Continue with email containing reset message with token
+                     visitor.visitToken = token 
+                    visitor.visitorTokenExpirationDate = new Date(Date.now() + VISIT_TOKEN_EXPIRATION);
+                    //save the updated visitor
+                    await this.userRepository.save(visitor);
+
+                    //construct and send email using nodemailer
+                    const otp = '9777738'
+                    const mailText = grantVisitMailOptionSettings.textTemplate.replace('{url}', otp);
+
+                    //mailOptions
+                    const mailOptions: SendMailOptions = {
+                        to: visitor.emailAddress,
                         from: confirmEmailMailOptionSettings.from,
                         subject: confirmEmailMailOptionSettings.subject,
                         text: mailText,
