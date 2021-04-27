@@ -9,12 +9,5 @@ export interface Reply extends FastifyReply{
     user: User //we need this for Typescript to recognize the presence of user in our request object to be sent to login.
   }
 
-  export interface AuthTokenPayload {
-    username: string;
-    sub: {
-      id: number ,
-      firstName: string,
-      lastName: string,
-      
-    }
-  }
+
+  

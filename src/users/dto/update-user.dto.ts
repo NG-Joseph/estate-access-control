@@ -1,47 +1,20 @@
-import {IsNotEmpty} from 'class-validator'
-import { ApiProperty } from "@nestjs/swagger";
+import { IsNotEmpty } from 'class-validator';
+
+
+
+// Update dto cannot be readonly because they will more than likely be overwritten
 export class UpdateUserDto {
-    @ApiProperty({ required: false })
-    @IsNotEmpty()
-    readonly firstName?: string;
-    @ApiProperty({ required: false })
-    @IsNotEmpty()
-    readonly lastName?: string;
-    @ApiProperty({ required: false })
-    @IsNotEmpty()
-    readonly middleName?: string;
+   firstName?: string;
 
-    @ApiProperty({ required: false })
-    @IsNotEmpty()
-    readonly emailAddress?: string;
-    @ApiProperty({ required: false })
-    readonly dateOfBirth?: Date;
+   lastName?: string;
 
-    @ApiProperty({ required: false })
-    readonly photo?: string;
-    @ApiProperty({ required: false })
-    readonly photoMimeType?: string;
-  
-    @ApiProperty({ required: false })
-    readonly passwordSalt?: string;
-  
-    @ApiProperty({ required: false })
-  
-    passwordHash?: string; //not readonly because it will be replaced by hash in the insertusers function
-  
-    @ApiProperty({ required: false })
-    readonly refreshTokenHash?: string;
-  
-    @ApiProperty({ required: false })
-    readonly primaryEmailVerificationToken?: string;
-  
-    @ApiProperty({ required: false })
-  
-    readonly emailVerificationTokenExpiration?: string;
-  
-    @ApiProperty({ required: false })
-   
-    readonly isPrimaryEmailAddressVerified?: boolean;
+   middleName?: string;
 
+   emailAddress?: string;
 
+   dateOfBirth?: Date;
+
+   passwordSalt?: string; 
+
+  passwordHash?: string; 
 }
