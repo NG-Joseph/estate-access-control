@@ -19,6 +19,7 @@ import { UsersService } from './users.service';
 
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
+import { InviteDto } from 'src/global/invite-dto';
 
 
 @Controller('users')
@@ -57,9 +58,9 @@ export class UsersController {
   async inviteForm(@Req() req:Request, @Res() reply: Reply, @Query() query:string)
   {
     const next = query['next']
-    reply.view('users/invite.html',{
+    reply.view('invite-visitor.html',{
       title: 'Invite a Visitor',
-      next: next ? next : '/',
+      next: next ? 'users/failure' : '/users/success',
       inviteUrl: 'users/invite',
       successUrl: 'users/success',
       failureUrl: 'users/failed',
@@ -70,9 +71,17 @@ export class UsersController {
   }
 
   @Post('invite-request')
-  grantVisitRequestToken(@Body() email:string, @Req() req:Request){
-     return this.usersService.grantVisitRequestToken(email,1,req)
+   async grantVisitRequestOtp(@Body() invitationDetails: InviteDto, /*@Res()reply:Reply,*/ @Req() req:Request){
+    
+     
+     
+     return await this.usersService.grantVisitRequestOtp(invitationDetails.visitorEmail,req,17, invitationDetails.userPassword);
   } 
+
+  @Get('invite-request/success')
+  async successPage(@Res() reply:Reply){
+    reply.view('invite-success.html')
+  }
 
 
    @Get()

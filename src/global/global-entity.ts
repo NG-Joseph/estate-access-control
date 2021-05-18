@@ -2,7 +2,7 @@
 import {Column, CreateDateColumn, UpdateDateColumn, PrimaryGeneratedColumn, Entity, Index, JoinTable, ManyToMany, OneToMany, OneToOne } from 'typeorm';
 
 
-export abstract class BaseAbstractEntity {//columns common to all entities to be inherited
+export abstract class GlobalEntity {//columns common to all entities to be inherited
     
     @PrimaryGeneratedColumn()
     id: number;

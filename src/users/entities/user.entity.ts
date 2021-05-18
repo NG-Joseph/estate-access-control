@@ -1,4 +1,4 @@
-import { BaseAbstractEntity } from "../../global/base-abstract.entity";
+import { GlobalEntity } from "../../global/global-entity";
 import {Column,  Entity, OneToMany } from 'typeorm';
 
 import { Visitor } from "src/visitors/entities/visitor.entity";
@@ -6,7 +6,7 @@ import { Visitor } from "src/visitors/entities/visitor.entity";
 
 
 @Entity()
-export class User extends BaseAbstractEntity{
+export class User extends GlobalEntity{
     @Column()
         firstName: string;
 
@@ -21,13 +21,11 @@ export class User extends BaseAbstractEntity{
 
    
     @Column({nullable:true})
-        passwordHash: string;
+        passwordHash: string; //encrypted version of password with bcrypt
 
     @Column({nullable: true})
         phoneNumber:number;
-
-    @Column({nullable: true})
-        passwordSalt: string;
+   
 
    
     @Column({ unique: true })

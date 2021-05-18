@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Home - EstateGo</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="Muna Okpala" content="">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&amp;display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="public/css/form.css">
+    <link rel="stylesheet" href="/public/css/tailwind/tailwind.min.css">
+    <link rel="icon" type="image/png" sizes="16x16" href="/public/favicon-tailwind.png">
+    <script src="/public/js/main.js"></script>
+  </head>
+<body class="antialiased bg-body text-body font-body">
+    <div class=""> 
+    
+        <section class="skewed-bottom-right">
+            <nav class="relative px-6 py-6 flex justify-between items-center bg-purple-600">
+              <a class="text-white text-3xl font-bold leading-none" href="#">EstateGo</a>
+              <div class="lg:hidden">
+                <button class="navbar-burger flex items-center text-white p-3">
+                  <svg class="block h-4 w-4 fill-current" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                    <title>Mobile menu</title>
+                    <path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z"></path>
+                  </svg>
+                </button>
+              </div>
+              <ul class="hidden absolute top-1/2 left-1/2 transform -translate-y-1/2 -translate-x-1/2 lg:flex lg:mx-auto lg:flex lg:items-center lg:w-auto lg:space-x-6">
+                <li><a class="text-sm text-gray-300 hover:text-white font-bold
+                  " href="#">Home</a></li>
+                <li class="text-gray-800">
+                  <svg class="w-4 h-4 current-fill" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 5v.01M12 12v.01M12 19v.01M12 6a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z"></path>
+                  </svg>
+                </li>
+                <li><a class="text-sm text-gray-300 hover:text-white " href="#about">About</a></li>
+                <li class="text-gray-800">
+                  <svg class="w-4 h-4 current-fill" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 5v.01M12 12v.01M12 19v.01M12 6a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z"></path>
+                  </svg>
+                </li>
+                <li><a class="text-sm text-gray-300 hover:text-white" href="#">Invite Visitor</a></li>
+                <li class="text-gray-800">
+                  <svg class="w-4 h-4 current-fill" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 5v.01M12 12v.01M12 19v.01M12 6a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z"></path>
+                  </svg>
+                </li>
+                <li><a class="text-sm text-gray-300 hover:text-white" href="#">Request Visit</a></li>
+                <li class="text-gray-800">
+                  <svg class="w-4 h-4 current-fill" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 5v.01M12 12v.01M12 19v.01M12 6a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z"></path>
+                  </svg>
+                </li>
+                <li><a class="text-sm text-gray-300 hover:text-white" href="#"></a></li>
+              </ul>
+              <a class="hidden lg:block py-2 px-6 bg-pink-600 hover:bg-pink-700 text-sm text-white font-bold rounded-l-xl rounded-t-xl transition duration-200" href="mailto:muna.okpala@gmail.com">Contact Us</a>
+            </nav>
+
+
+            <section class="py-10 bg-gray-50">
+              <div class="container mx-auto px-4">
+                <div class="max-w-xl mx-auto">
+                  
+                  <div class="p-6 lg:p-12 mb-6 bg-white shadow rounded">
+                    <div class="mb-6">
+                      <span class="text-gray-500">Resident</span>
+                      <h3 class="text-2xl font-bold">Invite a Visitor</h3>
+                    </div>
+                    <form id="inviteVisitor" action="http://localhost:3003/users/invite-request" method="POST" >
+                      <div class="flex flex-wrap -mx-2">
+                        <div class="mb-3 w-full lg:w-1/2 px-2">
+                          <input class="w-full p-4 text-xs bg-gray-50 outline-none rounded" id="firstName" type="text" placeholder="First Name">
+                        </div>
+                        <div class="mb-3 w-full lg:w-1/2 px-2">
+                          <input class="w-full p-4 text-xs bg-gray-50 outline-none rounded" id="lastName" type="text" placeholder="Last Name">
+                        </div>
+                      </div>
+                      <div class="mb-3 flex p-4 bg-gray-50 rounded">
+                        <input value= 'jnwokotubo@gmail.com' class="w-full text-xs bg-gray-50 outline-none" type="email" id="emailAddress" placeholder="name@email.com">
+                        <svg class="h-6 w-6 ml-4 my-auto text-gray-300" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.207"></path>
+                        </svg>
+                      </div>
+                      <div class="mb-6 flex p-4 bg-gray-50 rounded">
+                        <input value='password' class="w-full text-xs bg-gray-50 outline-none" type="password" id="password" placeholder="Enter your password">
+                        <button>
+                          <svg class="h-6 w-6 ml-4 my-auto text-gray-300" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+                          </svg>
+                        </button>
+                      </div>
+                      <div class="text-center">
+                        <button class="mb-2 w-full py-4 bg-pink-600 hover:bg-pink-700 rounded text-sm font-bold text-gray-50 transition duration-200" id="submitForm" type="submit">Send Invite</button>
+                        <span class="text-gray-400 text-xs">
+                          <span></span>
+                          <a class="text-purple-600 hover:underline" href="#">Visitor?</a>
+                        </span>
+                      </div>
+                    </form>
+                  </div>
+                  <p class="text-xs text-center text-gray-400"></p>
+                </div>
+              </div>
+            </section>
+            <script>
+
+
+
+              const inviteVisitorForm = document.getElementById('inviteVisitor'); 
+          
+              inviteVisitorForm.addEventListener('submit', (event) => {
+
+              event.preventDefault();
+          
+              
+          
+              const visitorEmail = document.getElementById('emailAddress').value;
+              if (visitorEmail == '') {
+                  visitorEmail.reportValidity();
+                  return false;
+              }
+          
+              const userPassword = document.getElementById('password').value;
+              if (userPassword == '') {
+                  userPassword.reportValidity();
+                  return false;
+              }
+              
+           
+          
+
+          
+              
+          
+              //prepare init for fetch
+              const init = {
+                    method: 'Post',
+                    redirect: 'manual',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    //credentials: 'same-origin',
+                    body: JSON.stringify({ visitorEmail,userPassword })
+                }
+
+
+
+                
+          
+          
+             
+          
+              //call fetch
+              fetch('http://localhost:3003/users/invite-request', init)
+                  .then(response => response.json())
+                  
+                  .then(data => {
+
+                    console.log(data)
+/*
+                      document.getElementById("submitCreateUserForm").classList.remove("is-loading");
+                      //set notification
+                      document.getElementById("notificationMessage").innerHTML = 'User creation successful';
+                      //add notification color class sent
+                      document.getElementById("notification").classList.add("is-success");
+                      //remove is-hidden from notificationWrapper
+                      document.getElementById("notification").classList.remove("is-hidden");*/
+                      
+                      window.location.replace('http://localhost:3003/users/invite-request/success')
+          
+                  })
+                  .catch(error => {
+                      //remove spinner class
+                     /* document.getElementById("submitCreateUserForm").classList.remove("is-loading");
+          
+                      document.getElementById("notificationMessage").innerHTML = error.message;
+                      //add notification color class sent
+                      document.getElementById("notification").classList.add("is-danger");
+                      //remove is-hidden from notificationWrapper
+                      document.getElementById("notification").classList.remove("is-hidden");*/
+          
+                  }); 
+          
+          
+              })
+          
+          </script>
+          </body>
+          </html>
+          

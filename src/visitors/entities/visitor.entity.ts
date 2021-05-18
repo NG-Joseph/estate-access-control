@@ -1,4 +1,4 @@
-import { BaseAbstractEntity } from '../../global/base-abstract.entity';
+import { GlobalEntity } from '../../global/global-entity';
 import {
   Column,
   JoinColumn,
@@ -18,7 +18,7 @@ import { User } from 'src/users/entities/user.entity';
 
 
 @Entity()
-export class Visitor extends BaseAbstractEntity {
+export class Visitor extends GlobalEntity {
   @Column({ nullable: true })
   firstName: string;
 
@@ -34,10 +34,10 @@ export class Visitor extends BaseAbstractEntity {
   phoneNumber: string;
 
   @Column({nullable:true})
-  visitToken: string
+  visitOtp: string
   
   @Column({nullable:true})
-  visitorTokenExpirationDate: Date
+  visitorOtpExpirationDate: Date
 
   
 

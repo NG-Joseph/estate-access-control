@@ -1,7 +1,6 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 
-
 import {} from 'otp-generator';
 
 import { Repository, UpdateResult } from 'typeorm';
@@ -9,13 +8,11 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { User } from './entities/user.entity';
 import * as bcrypt from 'bcrypt';
-//five imports below are for file upload handling
-import { Reply, Request } from '../global/custom.interfaces';
 
-import { randomBytes } from 'crypto';
+import { Request } from '../global/custom.interfaces';
+
 import {
-  
-  VISIT_TOKEN_EXPIRATION,
+  VISIT_OTP_EXPIRATION,
   smtpTransportGmail,
   grantVisitMailOptionSettings,
 } from 'src/global/app.settings';
@@ -62,26 +59,19 @@ export class UsersService {
 
   async update(id: number, user: UpdateUserDto): Promise<UpdateResult> {
     try {
-      const { passwordHash, ...userToSave } = user;
-      return await this.userRepository.update(id, { ...userToSave });
+      return await this.userRepository.update(id, user);
     } catch (error) {
-        if (error) {
-            throw new HttpException(
-              {
-                status: HttpStatus.INTERNAL_SERVER_ERROR,
-                error: `There was a problem with user creation: ${error.message}`,
-              },
-              HttpStatus.INTERNAL_SERVER_ERROR,
-            );
-          }
-        }
+      if (error) {
+        throw new HttpException(
+          {
+            status: HttpStatus.INTERNAL_SERVER_ERROR,
+            error: `There was a problem with user creation: ${error.message}`,
+          },
+          HttpStatus.INTERNAL_SERVER_ERROR,
+        );
       }
-
-  /**
-   *
-   * @param user
-   * No partial update allowed here. Saves the user object supplied
-   */
+    }
+  }
 
   async delete(id: number): Promise<void> {
     try {
@@ -96,13 +86,6 @@ export class UsersService {
       );
     }
   }
-
-  /** READ section
-   */
-  /**
-   * You can set options e.g. fields, relations to be returned etc. See https://typeorm.io/#/find-options
-   */
-
 
   async findAll(): Promise<[User[], number]> {
     try {
@@ -149,10 +132,11 @@ export class UsersService {
     }
   }
 
-  async grantVisitRequestToken(
-    email: string = null,
-    visitorId: number = null,
+  async grantVisitRequestOtp(
+    visitorEmail: string = null,
     req: Request,
+    userId: number = null,
+    userPassword: string,
   ) {
     /*Logic here ln 159-165: Assume visitor is null (does not exist),
      if the visitorId passed exists i.e is not null (!= null) (meaning there is an existing visitor entry with that Id),
@@ -160,71 +144,110 @@ export class UsersService {
     */
     try {
       let visitor: Visitor = null;
-      if (visitorId != null) {
-        visitor = await this.visitorRepository.findOne(visitorId); 
-      } else {
+      let user: User = null;
+      if (visitorEmail != null || userId != null) {
+        console.log('They exist');
         visitor = await this.visitorRepository.findOne({
-          where: { emailAddress: email },
+          where: { emailAddress: visitorEmail },
         });
+        user = await this.userRepository.findOne(userId);
+        console.log(user);
+        console.log(visitor);
       }
-      if (visitor != null) {
-        //Generate a random token for visitor
-        randomBytes(256, async (error, buf) => {
-          if (error) throw error; 
-          const token = buf.toString('hex');
 
-          //success. Continue with email containing reset message with token
-          const firstName = visitor.firstName;
+      if (visitor != null || user != null) {
+        console.log('they exist');
 
-          visitor.visitToken = token; //assign token to visitor in the table column called visitToken
-          //update visitorTokenExpirationDate column by adding expiration duration to current time
-          visitor.visitorTokenExpirationDate = new Date(
-            Date.now() + VISIT_TOKEN_EXPIRATION,
-          );
-          //save the updated visitor
-          await this.visitorRepository.save(visitor);
+        const isPasswordCorrect = await bcrypt.compare(
+          userPassword,
+          user.passwordHash,
+        );
 
-          
-          const otp = '9777738';
-          const mailText = grantVisitMailOptionSettings.textTemplate.replace(
-            '{url}',
-            otp,
-          ); //TODO: check how to replace multiple vars in textTemplate
+        //console.log(isPasswordCorrect)
+        //if (isPasswordCorrect == false)
+        if (!isPasswordCorrect) {
+          user = null;
+          console.log('Incorrect Password')
 
-          //mailOptions
-          const mailOptions: SendMailOptions = {
-            to: visitor.emailAddress,
-            from: grantVisitMailOptionSettings.from,
-            subject: grantVisitMailOptionSettings.subject,
-            text: mailText,
+          return {
+            
+            response: 'Wrong password entered for user',
           };
+        }
+        console.log('Password correct... proceeding')
 
-          //send mail
-          smtpTransportGmail.sendMail(mailOptions, async (error: Error) => {
+        const VisitorFirstName = visitor.firstName;
+        const visitorLastName = visitor.lastName;
+        const userFirstName = user.firstName;
+        const userLastName = user.lastName;
+        const otpGenerator = require('generate-otp'); // Package isn't ES6 compliant, import as a variable (the old way)
+        const otp = otpGenerator.generate(6);
+        visitor.visitOtp = otp;
 
-            if (error) console.log(error);
-          });
+        visitor.visitorOtpExpirationDate = new Date(
+          Date.now() + VISIT_OTP_EXPIRATION,
+        );
+        //save the updated visitor
+        await this.visitorRepository.save(visitor);
+
+        const mailText = grantVisitMailOptionSettings.textTemplate.replace(
+          '{otp}',
+          otp,
+        ); //TODO: check how to replace multiple vars in text, .replace() does not seem to take an object for multiple args
+
+        //Workaround: Procedurual replacement of text
+        //Better *future* workaround: Shorten code with regex
+
+        const mailText2 = mailText.replace(
+          '{visitorFirstName}',
+          VisitorFirstName,
+        );
+
+        const mailText3 = mailText2.replace(
+          '{visitorLastName}',
+          visitorLastName,
+        );
+
+        const mailText4 = mailText3.replace('{userFirstName}', userFirstName);
+
+        const subject = grantVisitMailOptionSettings.subject.replace(
+          '{userFirstName}',
+          userFirstName,
+        );
+        const subject2 = subject.replace('{userLastName}', userLastName);
+
+        //mailOptions
+        const mailOptions: SendMailOptions = {
+          to: visitor.emailAddress,
+          from: grantVisitMailOptionSettings.from,
+          subject: subject2,
+          text: mailText4,
+        };
+
+        //send mail
+        smtpTransportGmail.sendMail(mailOptions, async (error: Error) => {
+          if (error) console.log(error);
         });
         return {
-          notificationClass: 'is-info',
-          notificationMessage: `If valid user, you will receive email shortly for email address confirmation`,
+          response: `Processing... If user is valid you would recieve an email soon`,
         };
       } else {
         //email address or user not found
         //log bad request here and still respond
         return {
-          notificationClass: 'is-info',
-          notificationMessage: `If valid user, you will receive email shortly for email addres confirmation`,
+          response: `Processing... If user is valid you would recieve an email soon`,
         };
       }
     } catch (error) {
+      console.log(error);
       throw new HttpException(
         {
           status: HttpStatus.INTERNAL_SERVER_ERROR,
-          error: `Problem sending email address confirmation: ${error.message}`,
+          error: `Problem sending invite: ${error.message}`,
         },
         HttpStatus.INTERNAL_SERVER_ERROR,
       );
+      //TODO: Add Visit History Feature by appending date.now() each time an invite-request is made to a visitHistory 'simple-json' column.
     }
   }
 }
