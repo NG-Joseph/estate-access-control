@@ -1,9 +1,10 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { Cron } from '@nestjs/schedule';
 
 import {} from 'otp-generator';
 
-import { Repository, UpdateResult } from 'typeorm';
+import { DeleteResult, Repository, UpdateResult } from 'typeorm';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { User } from './entities/user.entity';
@@ -101,6 +102,29 @@ export class UsersService {
     }
   }
 
+  async deleteExpiredOtp(): Promise<DeleteResult> {
+    try {
+      const currentDate: Date = new Date();
+      return await this.userRepository
+      
+      .createQueryBuilder('user')
+      .addSelect("user.otp")
+      .delete()
+      .where('user.tokenExpirationDate <= :currentDate', {currentDate})
+      .execute()
+    } catch (error) {
+      throw new HttpException(
+        {
+          status: HttpStatus.INTERNAL_SERVER_ERROR,
+          error: `Could not delete OTP: ${error.message}`,
+        },
+        HttpStatus.INTERNAL_SERVER_ERROR,
+      );
+    }
+  }
+    
+  
+
   async findOne(id: number): Promise<User> {
     try {
       return await this.userRepository.findOne(id);
@@ -184,7 +208,7 @@ export class UsersService {
         const otp = otpGenerator.generate(6);
         visitor.visitOtp = otp;
 
-        visitor.visitorOtpExpirationDate = new Date(
+        visitor.visitorotpexpirationdate = new Date(
           Date.now() + VISIT_OTP_EXPIRATION,
         );
         //save the updated visitor

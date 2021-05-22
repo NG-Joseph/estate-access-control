@@ -11,7 +11,7 @@ export class CreateVisitorDto {
     readonly emailAddress: string;
     readonly phoneNumber: string;
     visitOtp: string;
-    visitorTokenExpirationDate: Date;
+    visitorOtpExpirationDate: Date;
    
   
     

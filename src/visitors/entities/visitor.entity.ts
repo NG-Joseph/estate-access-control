@@ -37,16 +37,14 @@ export class Visitor extends GlobalEntity {
   visitOtp: string
   
   @Column({nullable:true})
-  visitorOtpExpirationDate: Date
+  visitorotpexpirationdate: Date  // Changed to lowercase because of a typeorm bug that kept converting it to lowercase wrongly causing error.
 
   
 
   //NEXT: Relationships
 
   @ManyToOne(
-    type => User,
-    user => user.visitor,
-  )
+    type => User,user => user.visitor,)
   @JoinColumn()
   user: User;
 

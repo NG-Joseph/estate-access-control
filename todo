@@ -1,0 +1,2 @@
+Delete OTP from database @ a fixed date.
+https://stackoverflow.com/questions/59694478/delete-database-entries-if-expired-based-on-date-using-query-builder
