@@ -22,8 +22,8 @@ async function bootstrap() {
       bodyParser: false,
       cors: {
         origin: '*',
-        methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
-        preflightContinue: true,
+        methods: 'GET,HEAD,PUT,PATCH,POST,DELETE', //Set HTTP methods allowed 
+        preflightContinue: true, 
         optionsSuccessStatus: 204,
         credentials: true
       },
