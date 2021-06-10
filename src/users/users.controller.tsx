@@ -12,7 +12,9 @@ import {
   Query,
 } from '@nestjs/common';
 
-import { Request, Reply, } from 'src/global/custom.interfaces';
+
+
+import {  Reply, customRequest } from 'src/global/custom.interfaces';
 
 import { User } from './entities/user.entity';
 import { UsersService } from './users.service';
@@ -40,7 +42,7 @@ export class UsersController {
   @Post()
   create(
     @Body() createUserDto: CreateUserDto,
-    @Req() req: Request,
+    @Req() req: customRequest,
   ): Promise<User> {
     return this.usersService.create(createUserDto, req);
   }
@@ -56,7 +58,7 @@ export class UsersController {
   }
 
   @Get('invite')
-  async inviteForm(@Req() req:Request, @Res() reply: Reply, @Query() query:string)
+  async inviteForm(@Req() req:customRequest, @Res() reply: Reply, @Query() query:string)
   {
     const next = query['next']
     reply.view('invite-visitor.html',{
@@ -72,7 +74,7 @@ export class UsersController {
   }
 
   @Post('invite-request')
-   async grantVisitRequestOtp(@Body() invitationDetails: InviteDto, /*@Res()reply:Reply,*/ @Req() req:Request){
+   async grantVisitRequestOtp(@Body() invitationDetails: InviteDto, /*@Res()reply:Reply,*/ @Req() req:customRequest){
     
      
      
@@ -82,6 +84,10 @@ export class UsersController {
   @Get('invite-request/success')
   async successPage(@Res() reply:Reply){
     reply.view('invite-success.html')
+  }
+  @Get('manage-visitors')
+  async manageVisitors(@Res() reply:Reply){
+    reply.view('manage-visitors.html')
   }
 
 

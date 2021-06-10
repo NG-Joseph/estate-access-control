@@ -10,7 +10,7 @@ export class CreateVisitorDto {
     readonly lastName: string;
     readonly emailAddress: string;
     readonly phoneNumber: string;
-    visitOtp: string;
+    visitOtp?: string;
     visitorOtpExpirationDate: Date;
    
   

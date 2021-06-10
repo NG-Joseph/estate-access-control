@@ -4,9 +4,69 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&amp;display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/public/css/tailwind/tailwind.min.css">
+    <link rel="icon" type="image/png" sizes="16x16" href="/public/favicon-tailwind.png">
+    <script src="/public/js/main.js"></script>
     <title>Success</title>
 </head>
 <body>
-    <h1>If email is valid, there should be an invitation link in your mail.</h1>
+   
+<nav class="relative px-6 py-6 flex justify-between items-center bg-white-600">
+    <a class="text-white text-3xl font-bold leading-none" href="#">EstateGo</a>
+    <div class="lg:hidden">
+      <button class="navbar-burger flex items-center text-white p-3">
+        <svg class="block h-4 w-4 fill-current" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+          <title>Mobile menu</title>
+          <path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z"></path>
+        </svg>
+      </button>
+    </div>
+    <ul class="hidden absolute top-1/2 left-1/2 transform -translate-y-1/2 -translate-x-1/2 lg:flex lg:mx-auto lg:flex lg:items-center lg:w-auto lg:space-x-6">
+      <li><a class="text-sm text-gray-300 hover:text-white font-bold
+        " href="/">Home</a></li>
+      <li class="text-gray-800">
+        <svg class="w-4 h-4 current-fill" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 5v.01M12 12v.01M12 19v.01M12 6a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z"></path>
+        </svg>
+      </li>
+      <li><a class="text-sm text-gray-300 hover:text-white " href="/">About</a></li>
+      <li class="text-gray-800">
+        <svg class="w-4 h-4 current-fill" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 5v.01M12 12v.01M12 19v.01M12 6a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z"></path>
+        </svg>
+      </li>
+      <li><a class="text-sm text-gray-300 hover:text-white" href="/users/invite">Invite Visitor</a></li>
+      <li class="text-gray-800">
+        <svg class="w-4 h-4 current-fill" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 5v.01M12 12v.01M12 19v.01M12 6a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z"></path>
+        </svg>
+      </li>
+      <li><a class="text-sm text-gray-300 hover:text-white" href="/users/manage-visitors">Manage Visitors</a></li>
+      <li class="text-gray-800">
+        <svg class="w-4 h-4 current-fill" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 5v.01M12 12v.01M12 19v.01M12 6a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z"></path>
+        </svg>
+      </li>
+      <li><a class="text-sm text-gray-300 hover:text-white" href="#"></a></li>
+    </ul>
+    <a class="hidden lg:block py-2 px-6 bg-pink-600 hover:bg-pink-700 text-sm text-white font-bold rounded-l-xl rounded-t-xl transition duration-200" href="mailto:mjokpala@gmail.com">Contact Me</a>
+  </nav>
+  <section class="py-20 bg-white">
+    <div class="container mx-auto px-4">
+      <div class="max-w-xl mx-auto">
+        <div class="py-12 px-6 bg-white rounded shadow">
+          
+          <div class="text-center">
+            <span class="mb-6 text-4xl text-pink-600 font-bold">That's it!</span>
+            <h3 class="mb-2 text-4xl font-bold">A verification email has been sent to your vistor</h3>
+            <p class="mb-8 text-gray-400">If their account exists that is</p>
+            <div><a class="w-full lg:w-auto mb-2 lg:mb-0 lg:mr-4 inline-block py-2 px-6 rounded-l-xl rounded-t-xl font-bold leading-loose text-gray-50 bg-pink-700 hover:bg-gray-700" href="/">Go back to Homepage</a><a class="w-full lg:w-auto inline-block py-2 px-6 rounded-l-xl rounded-t-xl font-bold leading-loose bg-white hover:bg-gray-50" href="/users/invite">Send Again</a></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
 </body>
 </html>

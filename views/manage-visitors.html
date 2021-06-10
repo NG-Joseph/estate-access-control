@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Visitor Admin</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="Muna Okpala" content="">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&amp;display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/public/css/tailwind/tailwind.min.css">
+    <link rel="icon" type="image/png" sizes="16x16" href="/public/favicon-tailwind.png">
+    <script src="/public/js/main.js"></script>
+  </head>
+<body class="antialiased bg-body text-body font-body">
+    <div class=""> 
+    
+        <section class="skewed-bottom-right">
+            <nav class="relative px-6 py-6 flex justify-between items-center bg-purple-600">
+              <a class="text-white text-3xl font-bold leading-none" href="/">EstateGo</a>
+              <div class="lg:hidden">
+                <button class="navbar-burger flex items-center text-white p-3">
+                  <svg class="block h-4 w-4 fill-current" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                    <title>Mobile menu</title>
+                    <path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z"></path>
+                  </svg>
+                </button>
+              </div>
+              <ul class="hidden absolute top-1/2 left-1/2 transform -translate-y-1/2 -translate-x-1/2 lg:flex lg:mx-auto lg:flex lg:items-center lg:w-auto lg:space-x-6">
+                <li><a class="text-sm text-gray-300 hover:text-white 
+                  " href="/">Home</a></li>
+                <li class="text-gray-800">
+                  <svg class="w-4 h-4 current-fill" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 5v.01M12 12v.01M12 19v.01M12 6a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z"></path>
+                  </svg>
+                </li>
+                <li><a class="text-sm text-gray-300 hover:text-white " href="/">About</a></li>
+                <li class="text-gray-800">
+                  <svg class="w-4 h-4 current-fill" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 5v.01M12 12v.01M12 19v.01M12 6a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z"></path>
+                  </svg>
+                </li>
+                <li><a class="text-sm text-gray-300 hover:text-white " href="/users/invite">Invite Visitor</a></li>
+                <li class="text-gray-800">
+                  <svg class="w-4 h-4 current-fill" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 5v.01M12 12v.01M12 19v.01M12 6a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z"></path>
+                  </svg>
+                </li>
+                <li><a class="text-sm text-gray-300 hover:text-white font-bold" href="/users/manage-visitors">Manage Visitors</a></li>
+                <li class="text-gray-800">
+                  <svg class="w-4 h-4 current-fill" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 5v.01M12 12v.01M12 19v.01M12 6a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z"></path>
+                  </svg>
+                </li>
+                <li><a class="text-sm text-gray-300 hover:text-white" href="#"></a></li>
+              </ul>
+              <a class="hidden lg:block py-2 px-6 bg-pink-600 hover:bg-pink-700 text-sm text-white font-bold rounded-l-xl rounded-t-xl transition duration-200" href="mailto:muna.okpala@gmail.com">Contact Me</a>
+            </nav>
+
+            <section class="py-20 bg-blueGray-50">
+               
+                <div class="container px-4 mx-auto">
+                  <table class="w-full bg-white rounded shadow">
+                    <div class="mb-6">
+                        <span class="text-gray-500">Resident</span>
+                        <h3 class="text-3xl font-bold">Visitor List</h3>
+                      </div>
+                    <thead>
+                      <tr class="text-left text-xs"><th class="pl-6 py-4 font-normal">Visitor</th><th class="px-4 py-4 font-normal">Budget</th><th class="px-4 py-4 font-normal">Status</th><th class="px-4 py-4 font-normal">Users</th><th class="px-4 py-4 font-normal">Completion</th></tr>
+                    </thead>
+                    <tbody>
+                      <tr class="border-t border-blueGray-100">
+                        <td class="flex px-6 py-4 text-xs">
+                          <img class="w-8" src="https://bootstrapshuffle.com/metis-assets/logos/react.svg">
+                          <div class="pl-4">
+                            <p id='entry-1-name' class="font-semibold">React</p>
+                            <a id='entry-1-email' class="text-blueGray-400" href="#">visitor@vvv.com</a>
+                          </div>
+                        </td>
+                        <td id='entry-1-visit-date' class="px-4 py-2 text-xs font-semibold">5000$</td>
+                        <td class="px-4 py-2 text-xs">
+                          <span class="inline-block py-1 px-3 text-xs text-blue-600 bg-blue-100 font-semibold uppercase rounded-full">Pending</span>
+                        </td>
+                        <td class="px-4 py-2">
+                          <div class="flex"><img class="w-6 h-6 border border-white rounded-full object-top object-cover" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=crop&amp;w=128&amp;q=60"><img class="w-6 h-6 -ml-2 border border-white rounded-full object-top object-cover" src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=crop&amp;w=128&amp;q=60"><img class="w-6 h-6 -ml-2 border border-white rounded-full object-top object-cover" src="https://images.unsplash.com/photo-1499996860823-5214fcc65f8f?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=crop&amp;w=128&amp;q=60"><img class="w-6 h-6 -ml-2 border border-white rounded-full object-top object-cover" src="https://images.unsplash.com/photo-1456327102063-fb5054efe647?ixlib=rb-1.2.1&amp;auto=format&amp;fit=crop&amp;w=128&amp;q=60"></div>
+                        </td>
+                        <td>
+                          <div class="flex pl-4 items-center">
+                            <p class="text-xs font-semibold">50%</p>
+                            <div class="ml-2 w-24 h-1 rounded-xl bg-blueGray-200">
+                              <div class="w-12 h-1 rounded-xl bg-blue-500"></div>
+                            </div>
+                          </div>
+                        </td>
+                      </tr>
+                      <tr class="border-t border-blueGray-100">
+                        <td class="flex px-6 py-4 text-xs">
+                          <img class="w-8" src="https://bootstrapshuffle.com/metis-assets/logos/react.svg">
+                          <div class="pl-4">
+                            <p class="font-semibold">React</p>
+                            <a class="text-blueGray-400" href="#">visitor@vvv.com</a>
+                          </div>
+                        </td>
+                        <td class="px-4 py-2 text-xs font-semibold">5000$</td>
+                        <td class="px-4 py-2 text-xs">
+                          <span class="inline-block py-1 px-3 text-xs text-green-600 bg-green-100 font-semibold uppercase rounded-full">Success</span>
+                        </td>
+                        <td class="px-4 py-2">
+                          <div class="flex"><img class="w-6 h-6 border border-white rounded-full object-top object-cover" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=crop&amp;w=128&amp;q=60"><img class="w-6 h-6 -ml-2 border border-white rounded-full object-top object-cover" src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=crop&amp;w=128&amp;q=60"><img class="w-6 h-6 -ml-2 border border-white rounded-full object-top object-cover" src="https://images.unsplash.com/photo-1499996860823-5214fcc65f8f?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=crop&amp;w=128&amp;q=60"><img class="w-6 h-6 -ml-2 border border-white rounded-full object-top object-cover" src="https://images.unsplash.com/photo-1456327102063-fb5054efe647?ixlib=rb-1.2.1&amp;auto=format&amp;fit=crop&amp;w=128&amp;q=60"></div>
+                        </td>
+                        <td>
+                          <div class="flex pl-4 items-center">
+                            <p class="text-xs font-semibold">100%</p>
+                            <div class="ml-2 block w-24 h-1 rounded-xl bg-green-400"></div>
+                          </div>
+                        </td>
+                      </tr>
+                      <tr class="border-t border-blueGray-100">
+                        <td class="flex px-6 py-4 text-xs">
+                          <img class="w-8" src="https://bootstrapshuffle.com/metis-assets/logos/react.svg">
+                          <div class="pl-4">
+                            <p class="font-semibold">React</p>
+                            <a class="text-blueGray-400" href="#">visitor@vvv.com</a>
+                          </div>
+                        </td>
+                        <td class="px-4 py-2 text-xs font-semibold">5000$</td>
+                        <td class="px-4 py-2 text-xs">
+                          <span class="inline-block py-1 px-3 text-xs text-blue-600 bg-blue-100 font-semibold uppercase rounded-full">Pending</span>
+                        </td>
+                        <td class="px-4 py-2">
+                          <div class="flex"><img class="w-6 h-6 border border-white rounded-full object-top object-cover" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=crop&amp;w=128&amp;q=60"><img class="w-6 h-6 -ml-2 border border-white rounded-full object-top object-cover" src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=crop&amp;w=128&amp;q=60"><img class="w-6 h-6 -ml-2 border border-white rounded-full object-top object-cover" src="https://images.unsplash.com/photo-1499996860823-5214fcc65f8f?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=crop&amp;w=128&amp;q=60"><img class="w-6 h-6 -ml-2 border border-white rounded-full object-top object-cover" src="https://images.unsplash.com/photo-1456327102063-fb5054efe647?ixlib=rb-1.2.1&amp;auto=format&amp;fit=crop&amp;w=128&amp;q=60"></div>
+                        </td>
+                        <td>
+                          <div class="flex pl-4 items-center">
+                            <p class="text-xs font-semibold">50%</p>
+                            <div class="ml-2 block w-24 h-1 rounded-xl bg-blueGray-200">
+                              <div class="block w-12 h-1 rounded-xl bg-blue-500"></div>
+                            </div>
+                          </div>
+                        </td>
+                      </tr>
+                      <tr class="border-t border-blueGray-100">
+                        <td class="flex px-6 py-4 text-xs">
+                          <img class="w-8" src="https://bootstrapshuffle.com/metis-assets/logos/react.svg">
+                          <div class="pl-4">
+                            <p class="font-semibold">React</p>
+                            <a class="text-blueGray-400" href="#">visitor@vvv.com</a>
+                          </div>
+                        </td>
+                        <td class="px-4 py-2 text-xs font-semibold">5000$</td>
+                        <td class="px-4 py-2 text-xs">
+                          <span class="inline-block py-1 px-3 text-xs text-blue-600 bg-blue-100 font-semibold uppercase rounded-full">Pending</span>
+                        </td>
+                        <td class="px-4 py-2">
+                          <div class="flex"><img class="w-6 h-6 border border-white rounded-full object-top object-cover" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=crop&amp;w=128&amp;q=60"><img class="w-6 h-6 -ml-2 border border-white rounded-full object-top object-cover" src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=crop&amp;w=128&amp;q=60"><img class="w-6 h-6 -ml-2 border border-white rounded-full object-top object-cover" src="https://images.unsplash.com/photo-1499996860823-5214fcc65f8f?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=crop&amp;w=128&amp;q=60"><img class="w-6 h-6 -ml-2 border border-white rounded-full object-top object-cover" src="https://images.unsplash.com/photo-1456327102063-fb5054efe647?ixlib=rb-1.2.1&amp;auto=format&amp;fit=crop&amp;w=128&amp;q=60"></div>
+                        </td>
+                        <td>
+                          <div class="flex pl-4 items-center">
+                            <p class="text-xs font-semibold">50%</p>
+                            <div class="ml-2 block w-24 h-1 rounded-xl bg-blueGray-200">
+                              <div class="block w-12 h-1 rounded-xl bg-blue-500"></div>
+                            </div>
+                          </div>
+                        </td>
+                      </tr>
+                      <tr class="border-t border-blueGray-100">
+                        <td class="flex px-6 py-4 text-xs">
+                          <img class="w-8" src="https://bootstrapshuffle.com/metis-assets/logos/react.svg">
+                          <div class="pl-4">
+                            <p class="font-semibold">React</p>
+                            <a class="text-blueGray-400" href="#">visitor@vvv.com</a>
+                          </div>
+                        </td>
+                        <td class="px-4 py-2 text-xs font-semibold">5000$</td>
+                        <td class="px-4 py-2 text-xs">
+                          <span class="inline-block py-1 px-3 text-xs text-blue-600 bg-blue-100 font-semibold uppercase rounded-full">Pending</span>
+                        </td>
+                        <td class="px-4 py-2">
+                          <div class="flex"><img class="w-6 h-6 border border-white rounded-full object-top object-cover" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=crop&amp;w=128&amp;q=60"><img class="w-6 h-6 -ml-2 border border-white rounded-full object-top object-cover" src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=crop&amp;w=128&amp;q=60"><img class="w-6 h-6 -ml-2 border border-white rounded-full object-top object-cover" src="https://images.unsplash.com/photo-1499996860823-5214fcc65f8f?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=crop&amp;w=128&amp;q=60"><img class="w-6 h-6 -ml-2 border border-white rounded-full object-top object-cover" src="https://images.unsplash.com/photo-1456327102063-fb5054efe647?ixlib=rb-1.2.1&amp;auto=format&amp;fit=crop&amp;w=128&amp;q=60"></div>
+                        </td>
+                        <td>
+                          <div class="flex pl-4 items-center">
+                            <p class="text-xs font-semibold">50%</p>
+                            <div class="ml-2 block w-24 h-1 rounded-xl bg-blueGray-200">
+                              <div class="block w-12 h-1 rounded-xl bg-blue-500"></div>
+                            </div>
+                          </div>
+                        </td>
+                      </tr>
+                      <tr class="border-t border-blueGray-100">
+                        <td class="flex px-6 py-4 text-xs">
+                          <img class="w-8" src="https://bootstrapshuffle.com/metis-assets/logos/react.svg">
+                          <div class="pl-4">
+                            <p class="font-semibold">React</p>
+                            <a class="text-blueGray-400" href="#">visitor@vvv.com</a>
+                          </div>
+                        </td>
+                        <td class="px-4 py-2 text-xs font-semibold">5000$</td>
+                        <td class="px-4 py-2 text-xs">
+                          <span class="inline-block py-1 px-3 text-xs text-blue-600 bg-blue-100 font-semibold uppercase rounded-full">Pending</span>
+                        </td>
+                        <td class="px-4 py-2">
+                          <div class="flex"><img class="w-6 h-6 border border-white rounded-full object-top object-cover" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=crop&amp;w=128&amp;q=60"><img class="w-6 h-6 -ml-2 border border-white rounded-full object-top object-cover" src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=crop&amp;w=128&amp;q=60"><img class="w-6 h-6 -ml-2 border border-white rounded-full object-top object-cover" src="https://images.unsplash.com/photo-1499996860823-5214fcc65f8f?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=crop&amp;w=128&amp;q=60"><img class="w-6 h-6 -ml-2 border border-white rounded-full object-top object-cover" src="https://images.unsplash.com/photo-1456327102063-fb5054efe647?ixlib=rb-1.2.1&amp;auto=format&amp;fit=crop&amp;w=128&amp;q=60"></div>
+                        </td>
+                        <td>
+                          <div class="flex pl-4 items-center">
+                            <p class="text-xs font-semibold">50%</p>
+                            <div class="ml-2 block w-24 h-1 rounded-xl bg-blueGray-200">
+                              <div class="block w-12 h-1 rounded-xl bg-blue-500"></div>
+                            </div>
+                          </div>
+                        </td>
+                      </tr>
+                      <tr class="border-t border-blueGray-100">
+                        <td class="flex px-6 py-4 text-xs">
+                          <img class="w-8" src="https://bootstrapshuffle.com/metis-assets/logos/react.svg">
+                          <div class="pl-4">
+                            <p class="font-semibold">React</p>
+                            <a class="text-blueGray-400" href="#">visitor@vvv.com</a>
+                          </div>
+                        </td>
+                        <td class="px-4 py-2 text-xs font-semibold">5000$</td>
+                        <td class="px-4 py-2 text-xs">
+                          <span class="inline-block py-1 px-2 text-blue-600 bg-blue-100 font-semibold uppercase rounded-full">Pending</span>
+                        </td>
+                        <td class="px-4 py-2">
+                          <div class="flex"><img class="w-6 h-6 border border-white rounded-full object-top object-cover" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=crop&amp;w=128&amp;q=60"><img class="w-6 h-6 -ml-2 border border-white rounded-full object-top object-cover" src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=crop&amp;w=128&amp;q=60"><img class="w-6 h-6 -ml-2 border border-white rounded-full object-top object-cover" src="https://images.unsplash.com/photo-1499996860823-5214fcc65f8f?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=crop&amp;w=128&amp;q=60"><img class="w-6 h-6 -ml-2 border border-white rounded-full object-top object-cover" src="https://images.unsplash.com/photo-1456327102063-fb5054efe647?ixlib=rb-1.2.1&amp;auto=format&amp;fit=crop&amp;w=128&amp;q=60"></div>
+                        </td>
+                        <td>
+                          <div class="flex pl-4 items-center">
+                            <p class="text-xs font-semibold">50%</p>
+                            <div class="ml-2 block w-24 h-1 rounded-xl bg-blueGray-200">
+                              <div class="block w-12 h-1 rounded-xl bg-blue-500"></div>
+                            </div>
+                          </div>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </section>
+
+
+            <script>
+
+                //prepare init for fetch
+               
+
+              window.onload=  function loadJson(){
+               const init = {
+                    method: 'Get',
+                    mode: 'no-cors', // remove cors to fix preflight load issue
+                    headers: {
+                        'Content-Type': 'application/json',
+                        
+                    },
+                    credentials: 'same-origin',
+                   
+                   
+                }
+
+                fetch('http://localhost:3003/visitors', init)
+                .then(response => response.json())
+                .then((out) => {
+                  console.log(out)
+                })
+                .catch(error =>{
+                  throw error
+                })};
+                
+                
+
+
+
+                
+          
+          
+             
+          
+              //call fetch
+              
+/*
+                      document.getElementById("submitCreateUserForm").classList.remove("is-loading");
+                      //set notification
+                      document.getElementById("notificationMessage").innerHTML = 'User creation successful';
+                      //add notification color class sent
+                      document.getElementById("notification").classList.add("is-success");
+                      //remove is-hidden from notificationWrapper
+                      document.getElementById("notification").classList.remove("is-hidden");*/
+                      
+                     // window.location.replace('http://localhost:3003/users/invite-request/success')
+
+                     /**
+                      * IMPORTANT: What do I want to do here?
+                      * On window load, fetch json data from localhost:3003/visitors.
+                      * Store the needed values in variables
+                      * Map the values to each table record
+                      * How to do this? toolbox: window.onload, fetch, init, assigning td .value
+                      * Alternatives?: Use a react application. 
+          
+                  })
+                  .catch(error => {
+                      //remove spinner class
+                     /* document.getElementById("submitCreateUserForm").classList.remove("is-loading");
+          
+                      document.getElementById("notificationMessage").innerHTML = error.message;
+                      //add notification color class sent
+                      document.getElementById("notification").classList.add("is-danger");
+                      //remove is-hidden from notificationWrapper
+                      document.getElementById("notification").classList.remove("is-hidden");*/
+
+
+
+              /*const inviteVisitorForm = document.getElementById('inviteVisitor'); 
+          
+              inviteVisitorForm.addEventListener('submit', (event) => {
+
+              event.preventDefault();
+          
+              
+          
+              const visitorEmail = document.getElementById('emailAddress').value;
+              if (visitorEmail == '') {
+                  visitorEmail.reportValidity();
+                  return false;
+              }
+          
+              const userPassword = document.getElementById('password').value;
+              if (userPassword == '') {
+                  userPassword.reportValidity();
+                  return false;
+              }*/
+
+              
+           
+          
+
+          
+              
+          
+            
+          
+                  
+                
+          
+          
+              
+          
+          </script>
+          </body>
+          </html>
+          

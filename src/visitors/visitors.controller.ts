@@ -1,7 +1,8 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Res } from '@nestjs/common';
 import { VisitorsService } from './visitors.service';
 import { CreateVisitorDto } from './dto/create-visitor.dto';
 import { UpdateVisitorDto } from './dto/update-visitor.dto';
+import { Reply } from 'src/global/custom.interfaces';
 
 @Controller('visitors')
 export class VisitorsController {
@@ -30,5 +31,10 @@ export class VisitorsController {
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.visitorsService.remove(+id);
+  }
+
+  @Get('new')
+  async createNewVisitorPage(@Res() reply:Reply){
+    reply.view('create-visitor.html')
   }
 }

@@ -15,21 +15,28 @@ export class VisitorsService {
 
     @InjectRepository(Visitor) private visitorsRepository: Repository<Visitor>,
   ) {}
-// Experimental: Using NestJS's 'Cron' API to check for expired passwords every 5 seconds. NOT FULLY TESTED.
-  @Cron(CronExpression.EVERY_5_SECONDS)
-/**
- * Deletes all expired OTPs in database.
- */
+// Experimental: Using NestJS's 'Cron' API to check for expired OTP every 30 seconds and delete visitor if expired. NOT FULLY TESTED.
+  @Cron(CronExpression.EVERY_30_SECONDS)
+    /**
+     * Deletes Visitor entry if OTP is expired. What is the best approach? To delete visitor entirely (could be bad for audit purposes),
+     * or to store visitor data ( if this then figure out how to delete a field from a record, rather than the entire record)
+     */
     async deleteExpiredOtp(): Promise<void> {
       try {
         const currentDate: Date = new Date();
+        const nullValue = null
         await this.visitorsRepository
         
         .createQueryBuilder('visitor')
-        .addSelect("visitor.visitOtp")
-        .delete()
+        //.select('visitor.visitOtp')
+        .update('visitor')
+        .set({visitOtp: null})
         .where("visitor.visitorOtpExpirationDate <= :currentDate", {currentDate})
         .execute()
+
+        
+        
+        
         console.log('Cleared Obsolete OTPs')
       } catch (error) {
         console.log(error)

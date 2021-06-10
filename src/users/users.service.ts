@@ -10,7 +10,7 @@ import { UpdateUserDto } from './dto/update-user.dto';
 import { User } from './entities/user.entity';
 import * as bcrypt from 'bcrypt';
 
-import { Request } from '../global/custom.interfaces';
+
 
 import {
   VISIT_OTP_EXPIRATION,
@@ -20,6 +20,7 @@ import {
 import { SendMailOptions } from 'nodemailer';
 
 import { Visitor } from 'src/visitors/entities/visitor.entity';
+import { customRequest } from 'src/global/custom.interfaces';
 
 @Injectable()
 export class UsersService {
@@ -158,7 +159,7 @@ export class UsersService {
 
   async grantVisitRequestOtp(
     visitorEmail: string = null,
-    req: Request,
+    req: customRequest,
     userId: number = null,
     userPassword: string,
   ) {
@@ -169,7 +170,7 @@ export class UsersService {
     try {
       let visitor: Visitor = null;
       let user: User = null;
-      if (visitorEmail != null || userId != null) {
+      if (visitorEmail != null && userId != null) {
         console.log('They exist');
         visitor = await this.visitorRepository.findOne({
           where: { emailAddress: visitorEmail },
@@ -178,6 +179,10 @@ export class UsersService {
         console.log(user);
         console.log(visitor);
       }
+
+    /*  if(visitor == undefined){
+        visitor = await this.visitorRepository.create()
+      }*/
 
       if (visitor != null || user != null) {
         console.log('they exist');

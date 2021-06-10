@@ -7,8 +7,9 @@ import Mail from 'nodemailer/lib/mailer';
 require('dotenv').config();
 
 //user management
-export const PASSWORD_RESET_EXPIRATION = 86400000 * 2 //24 hours * 2 in milliseconds
-export const VISIT_OTP_EXPIRATION = 900000 * 2 // 3 hours * 2 in milliseconds = 6 hours
+
+export const VISIT_OTP_EXPIRATION = 10800000 //
+
 
 
 

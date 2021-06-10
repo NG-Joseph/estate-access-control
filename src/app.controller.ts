@@ -16,6 +16,7 @@ export class AppController {
   constructor(private readonly appService: AppService) {}
 
 
+// Set the default page once the server is accessed from the browser
 
   @Get()
   home(@Res() reply: Reply){
@@ -27,5 +28,10 @@ export class AppController {
 
     
   }  
+
+  @Get('404')
+    notFound(@Res() reply: Reply){
+      reply.view('404.html')
+    }
   
 }
