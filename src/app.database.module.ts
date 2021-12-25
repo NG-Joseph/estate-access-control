@@ -18,7 +18,7 @@ import { AuthModule } from './auth/auth.module';
         host: configService.get('POSTGRES_HOST', 'localhost'),
         port: configService.get('POSTGRES_PORT', 5432),
         username: configService.get('POSTGRES_USER', 'postgres'),
-        password: configService.get('POSTGRES_PASSWORD', 'coolpolice1'),
+        password: configService.get('POSTGRES_PASSWORD', ''),
         database: configService.get('POSTGRES_DB', 'estate-access-control'),
         entities: ["dist/**/*.entity{.ts,.js}"],
         synchronize: true,
